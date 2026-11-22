@@ -99,11 +99,7 @@ def dashboard():
         flash("Please log in first.", "error")
         return redirect(url_for("auth.login"))
 
-    return f"""
-        <h1>Welcome, {session['username']}!</h1>
-        <p>Your role: {session['role']}</p>
-        <a href="{url_for('auth.logout')}">Logout</a>
-    """
+    return render_template("dashboard.html")
 
 
 @auth_bp.route("/logout")

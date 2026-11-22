@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SSRMS{% endblock %} | Secure Student Records</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% if session.get('user_id') %}
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" href="{{ url_for('auth.dashboard') }}">
+            <span class="brand-mark">S</span>
+            <span><strong>SSRMS</strong><small>Student Records</small></span>
+        </a>
+
+        <div class="sidebar-label">Workspace</div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('auth.dashboard') }}" class="{% if request.endpoint == 'auth.dashboard' %}active{% endif %}">
+                <span class="nav-icon">⌂</span> Dashboard
+            </a>
+            <a href="{{ url_for('students.list_students') }}" class="{% if request.endpoint == 'students.list_students' %}active{% endif %}">
+                <span class="nav-icon">▤</span> Student Records
+            </a>
+            {% if session.get('role') in ['administrator', 'lecturer'] %}
+            <a href="{{ url_for('students.add_student') }}" class="{% if request.endpoint == 'students.add_student' %}active{% endif %}">
+                <span class="nav-icon">＋</span> Add Student
+            </a>
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile-mini">
+                <div class="avatar">{{ session.get('username', 'U')[:1]|upper }}</div>
+                <div class="profile-text">
+                    <strong>{{ session.get('username') }}</strong>
+                    <small>{{ session.get('role', '')|title }}</small>
+                </div>
+            </div>
+            <a class="logout-link" href="{{ url_for('auth.logout') }}">↪ Sign out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">SECURE STUDENT RECORDS MANAGEMENT</span>
+                <h1>{% block page_heading %}Workspace{% endblock %}</h1>
+            </div>
+            <div class="topbar-user">
+                <span class="role-pill {{ session.get('role') }}">{{ session.get('role', '')|title }}</span>
+                <div class="avatar avatar-small">{{ session.get('username', 'U')[:1]|upper }}</div>
+            </div>
+        </header>
+
+        <section class="content-area">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </section>
+        <footer class="app-footer">SSRMS · Database Security Prototype · BIT3360</footer>
+    </main>
+</div>
+{% else %}
+    {% block public_content %}{% endblock %}
+{% endif %}
+</body>
+</html>
