@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-intro">
+    <div>
+        <h2>Welcome, {{ session.get('username') }}</h2>
+        <p>Here is your SSRMS workspace. Your available actions depend on your assigned role.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div style="display:flex;align-items:center;gap:14px">
+        <div class="avatar" style="width:48px;height:48px;font-size:18px">{{ session.get('username', 'U')[:1]|upper }}</div>
+        <div>
+            <h3 style="margin:0 0 5px;font:700 16px Manrope,sans-serif">{{ session.get('username') }}</h3>
+            <span class="role-pill {{ session.get('role') }}">{{ session.get('role')|title }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <div class="card dashboard-card">
+        <div class="card-icon">▤</div>
+        <h3>Student Records</h3>
+        <p>Access student records according to your account permissions.</p>
+        <a class="btn" href="{{ url_for('students.list_students') }}">View records →</a>
+    </div>
+
+    {% if session.get('role') in ['administrator', 'lecturer'] %}
+    <div class="card dashboard-card">
+        <div class="card-icon">＋</div>
+        <h3>Add Student</h3>
+        <p>Create a new student record using the required information.</p>
+        <a class="btn" href="{{ url_for('students.add_student') }}">Add record →</a>
+    </div>
+    {% endif %}
+
+    {% if session.get('role') == 'administrator' %}
+    <div class="card dashboard-card">
+        <div class="card-icon">⚙</div>
+        <h3>Administration</h3>
+        <p>Administrator access includes viewing, adding, updating and deleting student records.</p>
+        <a class="btn btn-secondary" href="{{ url_for('students.list_students') }}">Manage records →</a>
+    </div>
+    {% elif session.get('role') == 'lecturer' %}
+    <div class="card dashboard-card">
+        <div class="card-icon">▣</div>
+        <h3>Lecturer Access</h3>
+        <p>You may view records and add students. Editing and deletion are restricted.</p>
+        <a class="btn btn-secondary" href="{{ url_for('students.list_students') }}">Review permissions →</a>
+    </div>
+    {% else %}
+    <div class="card dashboard-card">
+        <div class="card-icon">♙</div>
+        <h3>Student Access</h3>
+        <p>Your account is limited to viewing your own student record.</p>
+        <a class="btn btn-secondary" href="{{ url_for('students.list_students') }}">View my record →</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
