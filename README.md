@@ -4,6 +4,13 @@
 **Topic:** Database Security  
 **Institution:** Zambia University College of Technology
 
+**Group Members:**
+| Name | Student Number | Programme |
+|---|---|---|
+| Kondwani Zulu | 2420954 | BCS – 3rd Year |
+| Balica Mukange | 2421009 | BSE – 3rd Year |
+| Chileshe Chileshe | 2420910 | BIT – 3rd Year |
+
 SSRMS is a Flask web application backed by PostgreSQL. It demonstrates authentication, role-based access control, PostgreSQL permissions, row-level security (RLS), and parameterised SQL queries using fictional student records.
 
 > This is an academic prototype. Run it locally and use fictional data only. It is not intended for production use.
@@ -274,10 +281,3 @@ SSRMS/
 ├── requirements.txt
 └── README.md
 ```
-
-## 14. Further project documentation
-
-- `ARCHITECTURE.md` – system layers, request flow and role model.
-- `NATIVE_POSTGRESQL_SETUP.md` – PostgreSQL installation and configuration on Windows.
-- `PHASES.md` – development phases, deliverables and exit criteria.
-- `CONTRIBUTION_GUIDE.md` – Git branching and group collaboration workflow.
