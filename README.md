@@ -7,9 +7,9 @@
 **Group Members:**
 | Name | Student Number | Programme |
 |---|---|---|
-| Kondwani Zulu | 2420954 | BCS – 3rd Year |
-| Balica Mukange | 2421009 | BSE – 3rd Year |
-| Chileshe Chileshe | 2420910 | BIT – 3rd Year |
+| Kondwani Zulu | 2420954 | BCS – 3rd Year, 1st Sem |
+| Balica Mukange | 2421009 | BSE – 3rd Year, 1st Sem |
+| Chileshe Chileshe | 2420910 | BIT – 3rd Year, 1st Sem |
 
 SSRMS is a Flask web application backed by PostgreSQL. It demonstrates authentication, role-based access control, PostgreSQL permissions, row-level security (RLS), and parameterised SQL queries using fictional student records.
 
